@@ -294,7 +294,8 @@ public class SalesInvoiceFrame extends javax.swing.JFrame {
             public void run() {
                 SalesInvoiceFrame frame = new SalesInvoiceFrame();
                 frame.setVisible(true);
-                frame.sA.loadFile("C:\\Users\\DELL\\Downloads\\Invoice\\invoiceTable.txt","C:\\Users\\DELL\\Downloads\\Invoice\\loadLine.txt");
+                frame.sA.loadFile("D:\\NETBEANS\\JavaApplication1\\Invoice\\invoiceTable.txt","D:\\NETBEANS\\JavaApplication1\\Invoice\\loadLine.txt");
+                //frame.sA.loadFile("C:\\Users\\DELL\\Downloads\\Invoice\\invoiceTable.txt","C:\\Users\\DELL\\Downloads\\Invoice\\loadLine.txt");
             }
         });
     }
