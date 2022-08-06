@@ -46,7 +46,6 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("aaaaa");
        switch(e.getActionCommand())
        {
            case "Load File":
@@ -150,7 +149,6 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
                     Invoice invo = new Invoice(num,date,name);
                     
                     frame.getInvoices().add(invo);
-                    System.out.println("Invoice aho");
                     
                 }
                 for(String detail: llines)
@@ -163,7 +161,6 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
                     Invoice invo = getInvoiceByNum(Integer.parseInt(partsOfLine[1]));
                     Line line = new Line(num, invo,ItemName,price,count);
                     invo.getLines().add(line);
-                    System.out.println("line aho");
                 }
                 frame.getInvoiceTable().setModel(new HTableModel(frame.getInvoices()));
             }
@@ -215,6 +212,7 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
     private void okayInvoice() throws ParseException 
     {        
         Invoice invo = new Invoice(getNextInvoiceNum(),frame.sdf.parse(newInvoice.getInvoiceDate().getText()),newInvoice.getCustomerName().getText());
+        System.out.println("new Invoice number "+getNextInvoiceNum());
         frame.getInvoices().add(invo);
         ((HTableModel)frame.getInvoiceTable().getModel()).fireTableDataChanged();
         newInvoice.setVisible(false);
@@ -243,8 +241,8 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
         }
         return num + 1;
     }
-    private int getNextLineNum() {
-        Invoice invo = getInvoiceByNum(frame.getInvoiceTable().getSelectedRow());
+    private int getNextLineNum(int noo) {
+        Invoice invo = getInvoiceByNum(noo);
         int num = -1;
         for(Line l : invo.getLines())
         {
@@ -262,12 +260,14 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
     }
 
     private void okayLine() 
-    {
-        if(getInvoiceByNum(frame.getInvoiceTable().getSelectedRow()) != null){
-            System.out.println(getNextLineNum());
-            Line l = new Line(getNextLineNum(),getInvoiceByNum(frame.getInvoiceTable().getSelectedRow()),newLine.getItemName().getText(),Double.parseDouble(newLine.getItemPrice().getText()),Integer.parseInt(newLine.getItemCount().getText()));
-            getInvoiceByNum(frame.getInvoiceTable().getSelectedRow()).getLines().add(l);
-            l.toString();
+    {      
+        int num =  (int) frame.getInvoiceTable().getValueAt(frame.getInvoiceTable().getSelectedRow(),0);
+        System.out.println("number " +num);
+        System.out.println("invoice by the row "+getInvoiceByNum(num));
+        if(getInvoiceByNum(num) != null){
+            Line l = new Line(getNextLineNum(num),getInvoiceByNum(num),newLine.getItemName().getText(),Double.parseDouble(newLine.getItemPrice().getText()),Integer.parseInt(newLine.getItemCount().getText()));
+            getInvoiceByNum(num).getLines().add(l);
+           // l.toString();
             newLine.setVisible(false);
             newLine.dispose();
             ((HTableModel)frame.getInvoiceTable().getModel()).fireTableDataChanged();
