@@ -137,6 +137,7 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
         {
             try
             {
+                frame.getInvoices().clear();
                 List<String> hlines = Files.lines(Paths.get(finvoiceFile.getAbsolutePath())).collect(Collectors.toList());
                 List<String> llines = Files.lines(Paths.get(flineFile.getAbsolutePath())).collect(Collectors.toList());
                 for(String detail: hlines)
@@ -147,6 +148,7 @@ public class SalesInvoiceActions implements ActionListener, ListSelectionListene
                     String name = partsOfInvoice[2];
                     Date date = SalesInvoiceFrame.sdf.parse(dateS);
                     Invoice invo = new Invoice(num,date,name);
+                    
                     frame.getInvoices().add(invo);
                     System.out.println("Invoice aho");
                     
