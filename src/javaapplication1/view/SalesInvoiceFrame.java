@@ -29,7 +29,7 @@ public class SalesInvoiceFrame extends javax.swing.JFrame {
     private SalesInvoiceActions sA;
     
     public SalesInvoiceFrame() {
-        sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
         sA = new SalesInvoiceActions(this);
         initComponents();
     }
